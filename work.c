@@ -16,9 +16,10 @@ int main() {
 
 	int option;
 
+	displayClassInfoSimonT();
+
 	do { 
 
-		displayClassInfoSimonT();
 		displayMenu();
 
 		printf("Enter an integer for option + Enter:  ");
@@ -82,14 +83,18 @@ void printOriginal(int* arrayOfIntegers,int numberOfIntegers) {
 
 void linkedList(int* arrayOfIntegers,int numberOfIntegers) {
 
+	printf("\nCalling extractDigitInfoSimonT()\n\n");
+	printf("After the function completed and returned the info, interesting \n"
+			"facts are shown below.\n");
+
 	typedef struct digitInfoNode {
 		int digitValue;
-
+		int countingDigits;
 		struct digitInfoNode* next;
 	}digitInfoNodeSimonT;
 
 
-	int digitCountAry[10] = {0};
+	int countingDigits[10] = {0};
 	int current;
 	digitInfoNodeSimonT* head = NULL;
 	
@@ -99,7 +104,7 @@ void linkedList(int* arrayOfIntegers,int numberOfIntegers) {
 		current = arrayOfIntegers[iterator] > 0 ? arrayOfIntegers[iterator] : -arrayOfIntegers[iterator];
 		
 		do {
-			digitCountAry[current % 10] = 1;
+			countingDigits[current % 10]++;
 			current /= 10;
 		} while (current != 0);
 	}
@@ -107,16 +112,41 @@ void linkedList(int* arrayOfIntegers,int numberOfIntegers) {
 
 	for (int counter = 0; counter <= 9; counter++) {
 	
-		head = (digitInfoNodeSimonT*) malloc(sizeof(digitInfoNodeSimonT));
+		if (countingDigits[counter] <= 9){
+			 head = (digitInfoNodeSimonT*)malloc(sizeof(digitInfoNodeSimonT));
 
-		if (head == NULL){
-			printf("%d\n",head->digitValue);
-		}else{
-			head->digitValue = counter;
-			printf("hello %d\n",head->digitValue=counter);
-			head->next = NULL;	
+			if (head == NULL) {
+				
+			} else {
+
+				head->digitValue = counter;
+				head->countingDigits = arrayOfIntegers[counter];
+
+				
+				//printf("EVEN %d\n",head->digitValue=counter);
+				//printf("EVEN THIS %d\n",head->countingDigits = countingDigits[counter]);
+
+				head->next = NULL;	
+
+			}
 		}	
+		if ((head->countingDigits = countingDigits[counter]) >= 1){
+
+			printf("    Digit %d is seen %d time(s); and \n"
+				" 	%d can be found in\n",head->digitValue = counter, 
+				head->countingDigits = countingDigits[counter], head->digitValue = counter);
+
+			for (int iterator = 0; iterator < numberOfIntegers; iterator++){
+				if (arrayOfIntegers[iterator]%10 == counter){
+					printf("          %d\n",arrayOfIntegers[iterator]);
+				}
+			}
+		}	
+		
 	}
+
+	printf("\n");
+
 };
 
 
