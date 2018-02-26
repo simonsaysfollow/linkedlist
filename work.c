@@ -84,31 +84,41 @@ void linkedList(int* arrayOfIntegers,int numberOfIntegers) {
 
 	typedef struct digitInfoNode {
 		int digitValue;
+
 		struct digitInfoNode* next;
 	}digitInfoNodeSimonT;
 
-	typedef struct searchNode{
-		int digit;
-		int digitCount;
-		digitInfoNodeSimonT* valuePtr;
-		struct searchNode* next;
-	}searchNodeSimonT;
 
-	digitInfoNodeSimonT* head = Null;
-	head = malloc(sizeof(digitInfoNodeSimonT));
-	if (head == null){
+	int digitCountAry[10] = {0};
+	int current;
+	digitInfoNodeSimonT* head = NULL;
+	
 
-
-	}else{
-		head -> digitValue*2;
-		head -> next = null;
+	for(int iterator = 0; iterator < numberOfIntegers; iterator++) {
+		
+		current = arrayOfIntegers[iterator] > 0 ? arrayOfIntegers[iterator] : -arrayOfIntegers[iterator];
+		
+		do {
+			digitCountAry[current % 10] = 1;
+			current /= 10;
+		} while (current != 0);
 	}
 
 
+	for (int counter = 0; counter <= 9; counter++) {
+	
+		head = (digitInfoNodeSimonT*) malloc(sizeof(digitInfoNodeSimonT));
 
-
-
+		if (head == NULL){
+			printf("%d\n",head->digitValue);
+		}else{
+			head->digitValue = counter;
+			printf("hello %d\n",head->digitValue=counter);
+			head->next = NULL;	
+		}	
+	}
 };
+
 
 void extractDigitInfoSimonT() {
 	int *arrayOfIntegers;
