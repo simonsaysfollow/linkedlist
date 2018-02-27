@@ -83,6 +83,32 @@ void printOriginal(int* arrayOfIntegers,int numberOfIntegers) {
 
 void linkedList(int* arrayOfIntegers,int numberOfIntegers) {
 
+	int holder;
+	int *arrayOfSorts;
+
+	arrayOfSorts = (int *)malloc(numberOfIntegers * sizeof(int));
+
+	for (int sortArray = 0; sortArray < numberOfIntegers; sortArray++) {
+
+		arrayOfSorts[sortArray] = arrayOfIntegers[sortArray];
+	}
+
+	for (int sorting = 0; sorting < numberOfIntegers; sorting++) {
+
+		for (int order = sorting + 1;order < numberOfIntegers; order++) {
+
+			if (arrayOfSorts[sorting] > arrayOfSorts[order]){
+
+				holder = arrayOfSorts[sorting];
+
+				arrayOfSorts[sorting] = arrayOfSorts[order];
+
+				arrayOfSorts[order] =  holder;
+				
+			}
+		}
+	}
+	
 	printf("\nCalling extractDigitInfoSimonT()\n\n");
 	printf("After the function completed and returned the info, interesting \n"
 			"facts are shown below.\n");
@@ -90,6 +116,7 @@ void linkedList(int* arrayOfIntegers,int numberOfIntegers) {
 	typedef struct digitInfoNode {
 		int digitValue;
 		int countingDigits;
+		int theValue;
 		struct digitInfoNode* next;
 	}digitInfoNodeSimonT;
 
@@ -101,7 +128,7 @@ void linkedList(int* arrayOfIntegers,int numberOfIntegers) {
 
 	for(int iterator = 0; iterator < numberOfIntegers; iterator++) {
 		
-		current = arrayOfIntegers[iterator] > 0 ? arrayOfIntegers[iterator] : -arrayOfIntegers[iterator];
+		current = arrayOfSorts[iterator] > 0 ? arrayOfSorts[iterator] : -arrayOfSorts[iterator];
 		
 		do {
 			countingDigits[current % 10]++;
@@ -115,38 +142,33 @@ void linkedList(int* arrayOfIntegers,int numberOfIntegers) {
 		if (countingDigits[counter] <= 9){
 			 head = (digitInfoNodeSimonT*)malloc(sizeof(digitInfoNodeSimonT));
 
-			if (head == NULL) {
-				
-			} else {
+			if (head != NULL) {
 
 				head->digitValue = counter;
-				head->countingDigits = arrayOfIntegers[counter];
-
-				
-				//printf("EVEN %d\n",head->digitValue=counter);
-				//printf("EVEN THIS %d\n",head->countingDigits = countingDigits[counter]);
-
+				head->countingDigits = arrayOfSorts[counter];
 				head->next = NULL;	
 
 			}
 		}	
+		
 		if ((head->countingDigits = countingDigits[counter]) >= 1){
 
 			printf("    Digit %d is seen %d time(s); and \n"
 				" 	%d can be found in\n",head->digitValue = counter, 
 				head->countingDigits = countingDigits[counter], head->digitValue = counter);
 
-			for (int iterator = 0; iterator < numberOfIntegers; iterator++){
-				if (arrayOfIntegers[iterator]%10 == counter){
-					printf("          %d\n",arrayOfIntegers[iterator]);
-				}
+			for (int iterator = 0; iterator <= numberOfIntegers; iterator++){
+				/* if (arrayOfSorts[iterator]%10 == counter){
+					printf("          %d\n",arrayOfSorts[iterator]);
+					------> this is the perfect spacing <-------- */
+				//}
 			}
-		}	
-		
+		}
 	}
 
 	printf("\n");
-
+	free(head);
+	free(arrayOfSorts);
 };
 
 
@@ -167,6 +189,8 @@ void extractDigitInfoSimonT() {
 	createArray(arrayOfIntegers,numberOfIntegers);
 	printOriginal(arrayOfIntegers, numberOfIntegers);
 	linkedList(arrayOfIntegers, numberOfIntegers);
+
+	free(arrayOfIntegers);
 
 };
 
